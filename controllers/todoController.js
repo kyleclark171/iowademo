@@ -18,7 +18,7 @@ function beginRequest(req){
 
 module.exports = function(app){
 
-	app.get('/todo', function(req, res){
+	app.get('/', function(req, res){
 		beginRequest(req);
 
 		todoRepository.getAllTodos().then(function(todos){
