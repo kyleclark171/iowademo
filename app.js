@@ -7,12 +7,16 @@ var app = express();
 //template engine
 app.set('view engine', 'ejs');
 
-//static files
 //localhost:3000/assets/styles.css knows to already start in public directory
-app.use(express.static('./public'));
+app.use(express.static('./public')); 
 
-//fire controllers
+//configure controllers
 todoController(app);
+
+// Default invalid routes to return to main route
+app.all("*",function(req,res){ 
+    res.redirect("/"); 
+});
 
 var port = process.env.PORT || 3000;
 

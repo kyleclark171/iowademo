@@ -16,6 +16,12 @@ function beginRequest(req){
 	console.log("------------------------------");
 }
 
+function getOnErrorFunc(res){
+	return function(err){
+		res.render('error', { errorDetails: JSON.stringify(err, null, 2)})
+	}
+}
+
 module.exports = function(app){
 
 	app.get('/', function(req, res){
@@ -23,7 +29,7 @@ module.exports = function(app){
 
 		todoRepository.getAllTodos().then(function(todos){
 			res.render('todo', { todos: todos });
-		});
+		},getOnErrorFunc(res));
 	});
 
 	app.post('/todo', urlencodedParser, function(req, res){
@@ -34,9 +40,7 @@ module.exports = function(app){
 			.then(function(){
 				console.log("create succeeded");
 				res.json(true);
-			}, function(){
-				res.json(false);
-			});
+			},getOnErrorFunc(res));
 	});
 
 	app.delete('/todo/:item', function(req, res){
@@ -47,8 +51,6 @@ module.exports = function(app){
 			.then(function(){
 				console.log("delete succeeded");
 				res.json(true);
-			}, function(){
-				res.json(false);
-			});
+			},getOnErrorFunc(res));
 	});
 }

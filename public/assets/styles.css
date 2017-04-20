@@ -4,6 +4,12 @@ body{
     color: #989898;
 }
 
+#error-snippet{
+    background: #23282e;
+    margin: 25px 25px 25px 25px;
+    padding: 10px 10px 10px 10px;
+}
+
 #todo-table{
     position: relative;
     width: 95%;

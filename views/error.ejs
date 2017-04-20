@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>Error</title>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<link href="/assets/styles.css" rel="stylesheet" type="text/css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	</head>
+	<body>
+        <h1>An Error Occurred</h1>
+        <div>
+            Please check your application configuration
+        </div>
+        <% if(errorDetails){ %>
+        <hr/>
+		<div id="err-details">
+			<h3>Error Detail</h3>
+            <div id="error-snippet">
+			    <code ><%= errorDetails %></code>
+            </div>
+		</div>
+        <% } %>
+	</body>
+</html>
