@@ -1,89 +1,54 @@
 var bodyParser = require('body-parser');
-
-var localTodoData = [];
 var urlencodedParser = bodyParser.urlencoded({extended: false});
+var todoRepository = require('../repositories/todoRepository.js');
 
+function beginRequest(req){
+	console.log("------------------------------");
+	console.log("-- Beginning request");
+	console.log("---- Method: " + req.method);
+	console.log("---- Url:    " + req.url);
 
-var AWS = require('aws-sdk');
-
-//update to true when testing locally, should use environment variables on AWS but too lazy to implement
-var local = false;
-
-AWS.config.update({
-  region: "us-east-2",
-  endpoint: (local) ? "http://localhost:8000" : "https://dynamodb.us-east-2.amazonaws.com"
-});
-
-var docClient = new AWS.DynamoDB.DocumentClient();
-
+	if(req.method == "POST"){
+		console.log("---- Body:");
+		console.log(JSON.stringify(req.body, null, 2));
+	}
+	
+	console.log("------------------------------");
+}
 
 module.exports = function(app){
 
 	app.get('/todo', function(req, res){
-		console.log('getting todos');
-		localTodoData = [];
+		beginRequest(req);
 
-
-		var params = {
-			TableName: "Todos"
-		}
-		docClient.scan(params, function(err, data){
-			if (err) { 
-				console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
-			} else{
-				console.log("query succeeded")
-				data.Items.forEach(function(todo){
-					console.log("item: " + todo.item);
-					var todoItem = {
-						"item": todo.item
-					}
-					localTodoData.push(todoItem);
-				});
-				res.render('todo', {todos: localTodoData});
-			}
+		todoRepository.getAllTodos().then(function(todos){
+			res.render('todo', { todos: todos });
 		});
 	});
 
 	app.post('/todo', urlencodedParser, function(req, res){
-		console.log('request body: ' + JSON.stringify(req.body, null, 2));
+		beginRequest(req);
 
-		var params = {
-	        TableName: "Todos",
-	        Item: req.body
-	    };
-
-	    //post to Dynamo
-	    docClient.put(params, function(err, data) {
-			if (err) {
-			   console.error("Unable to add todo. Error JSON:", JSON.stringify(err, null, 2));
-			} else {
-			   console.log("PutItem succeeded");
-			   console.log("data: ", JSON.stringify(data, null, 2));
-			   localTodoData.push(req.body);
-			   res.json(localTodoData);
-			}
-	    });
+		var todoItem = req.body.item;
+		todoRepository.createTodo(todoItem)
+			.then(function(){
+				console.log("create succeeded");
+				res.json(true);
+			}, function(){
+				res.json(false);
+			});
 	});
 
 	app.delete('/todo/:item', function(req, res){
+		beginRequest(req);
 
-		//delete from Dynamo
-		var params = {
-			TableName: "Todos",
-			Key:{
-				"item": req.params.item.replace(/-/g, ' ')
-			}
-		}
-		docClient.delete(params, function(err, data){
-			if(err){
-				console.error("Unable to delete todo. Error JSON:", JSON.stringify(err, null, 2));
-			} else {
-				console.log("Delete succeeded:", JSON.stringify(data, null, 2));
-				localTodoData = localTodoData.filter(function(todo){
-					return todo.item.replace(/ /g, '-') !== req.params.item;
-				});
-				res.json(localTodoData);
-			}
-		});
+		var todoItem = req.params.item;
+		todoRepository.deleteTodo(todoItem)
+			.then(function(){
+				console.log("delete succeeded");
+				res.json(true);
+			}, function(){
+				res.json(false);
+			});
 	});
 }

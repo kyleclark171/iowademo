@@ -21,7 +21,8 @@ $(document).ready(function(){
   });
 
   $('li').on('click', function(){
-      var item = $(this).text().replace(/ /g, "-");
+      // encode to escape spaces and other characters
+      var item = encodeURIComponent( $(this).text() );
       $.ajax({
         type: 'DELETE',
         url: '/todo/' + item,
