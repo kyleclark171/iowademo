@@ -3,8 +3,8 @@
 This is a simple node.js task list app. This demo is focused around setting up a local node.js environment, and then hosting the application within AWS. Instructions on both of these tasks are contained in this dodument.
 
 ### Contents
-* Running the Application Locally
-* Deploying to AWS
+* [Running the Application Locally](#running-the-application-locally)
+* [Deploying to AWS](#deploying-to-aws)
 
 ## Running the Application Locally
 
@@ -24,7 +24,7 @@ This is a simple node.js task list app. This demo is focused around setting up a
 5. Run `node app.js`
 6. Open a browser window, and go to [http://localhost:3000](http://localhost:3000)
 
-### Deploying the Application to AWS
+## Deploying to AWS
 
 1. Login to the AWS console
 2. Go to IAM  and give your `aws-elasticbeanstalk-ec2-role` Dynamo permissions: `AmazonDynamoDBFullAccess`
