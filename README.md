@@ -10,14 +10,15 @@ This is a simple node.js task list app. This demo is focused around setting up a
 
 ### Installing the Tools
 
-* Node JS -- (Insert link to online instructions)
-* DynamoDb -- (Insert link to online instructions)
+* [Node JS](https://nodejs.org/en/download/)
+* [DynamoDb](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
 
 ### Starting the application
 
 1. Clone the code from this repo
 2. Open a command prompt window (Terminal on Mac) 
 3. Run your local copy of dynamoDB. In its current version the command is `java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb`
+    * If you are unable to run DynamoDB, ensure that java is installed on your machine. Download can be found [here](https://java.com/en/)
 4. Open another command prompt window (Terminal on Mac) and navigate to the source directory (the directory containing the `app.js` file)
 5. Run `npm install` in repo folder 
 5. Run `node app.js`
