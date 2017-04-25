@@ -1,5 +1,6 @@
-# Build Output
+# Build Files
 bin/
+build.sh
 
 # Windows image file caches
 Thumbs.db
