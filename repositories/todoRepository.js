@@ -4,10 +4,21 @@ var q = require('q');
 
 // configure AWS
 AWS.config.setPromisesDependency(q.Promise);
-AWS.config.update({
-  region: process.env.dynamoRegion || "us-east-2",
-  endpoint: process.env.dynamoURL || "http://localhost:8000"
-});
+
+if(process.env.dynamoRegion)
+{
+    AWS.config.update({
+        region: process.env.dynamoRegion,
+        endpoint: "https://dynamodb." + process.env.dynamoRegion + ".amazonaws.com"
+    });
+} else {
+    AWS.config.update({
+        accessKeyId: 'XXXX-XX-XXXX', // local dynamo requires an example access key id and secret acces key
+        secretAccessKey: 'YYYY-YY-YYYY',
+        region: "us-east-2",
+        endpoint: "http://localhost:8000"
+    });
+}
 
 // Schema configuration for DynamoDB
 var todoSchema = {
