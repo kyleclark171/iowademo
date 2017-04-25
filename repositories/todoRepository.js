@@ -5,11 +5,11 @@ var q = require('q');
 // configure AWS
 AWS.config.setPromisesDependency(q.Promise);
 
-if(process.env.dynamoRegion)
+if(process.env.AWS_REGION)
 {
     AWS.config.update({
-        region: process.env.dynamoRegion,
-        endpoint: "https://dynamodb." + process.env.dynamoRegion + ".amazonaws.com"
+        region: process.env.AWS_REGION,
+        endpoint: "https://dynamodb." + process.env.AWS_REGION + ".amazonaws.com"
     });
 } else {
     AWS.config.update({
