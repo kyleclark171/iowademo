@@ -25,10 +25,17 @@ This is a simple node.js task list app. This demo is focused around setting up a
 6. Open a browser window, and go to [http://localhost:3000](http://localhost:3000)
 
 ## Deploying to AWS
-
-1. Login to the AWS console
-2. Go to IAM  and give your `aws-elasticbeanstalk-ec2-role` Dynamo permissions: `AmazonDynamoDBFullAccess`
-3. Create Deployment artifact for Elastic Beanstalk
+1. Create Deployment artifact for Elastic Beanstalk
     * Windows - place the contents of the repo folder into a zip file
     * Mac - run `zip ../todoApp.zip -r * .[^.]* `
-4. Go to Elastic Beanstalk and create your application 
+2. Login to the AWS console (Create account if you don't have one)
+3. Create your application with elastic Beanstalk
+	1. Click on the Elastic Beanstalk Service (Under compute)
+	2. Choose 'Get Started'
+	3. Enter in an application name, and select NodeJS as the platform
+	4. Select 'Upload your code' and upload the .zip file created in step 1
+	5. Click 'Create Application'
+4. Configure you application permissions
+	* Go to IAM  and give your `aws-elasticbeanstalk-ec2-role` Dynamo permissions: `AmazonDynamoDBFullAccess`
+5. Return to the Elastic Beanstalk service and select the application you just deployed
+6. Navigate to the application URL (Should be provided at the top of the screen) and try out the application
