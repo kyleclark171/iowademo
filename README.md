@@ -27,7 +27,7 @@ This is a simple node.js task list app. This demo is focused around setting up a
 ## Deploying to AWS
 1. Create Deployment artifact for Elastic Beanstalk
     * Windows - place the contents of the repo folder into a zip file
-    * Mac - run `zip ../todoApp.zip -r * .[^.]* `
+    * Mac - open a terminal and run `zip ../todoApp.zip -r * .[^.]* ` in the project directory
 2. Login to the AWS console (Create account if you don't have one)
 3. Create your application with elastic Beanstalk
 	1. Click on the Elastic Beanstalk Service (Under compute)
