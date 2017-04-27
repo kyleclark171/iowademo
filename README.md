@@ -36,6 +36,11 @@ This is a simple node.js task list app. This demo is focused around setting up a
 	4. Select 'Upload your code' and upload the .zip file created in step 1
 	5. Click 'Create Application'
 4. Configure you application permissions
-	* Go to IAM  and give your `aws-elasticbeanstalk-ec2-role` Dynamo permissions: `AmazonDynamoDBFullAccess`
+	1. Click on the 'Services' dropdown in the top left of the screen, and select 'IAM' 
+		* This service can be found under 'Security, Identity & Compliance'
+		* IAM stands for Identity and Access Management
+	2. Select 'Roles' from the left menu and click on the `aws-elasticbeanstalk-ec2-role` role
+	3. Under the 'Permissions' tab, click 'Attach Policy'
+	4. Select 'AmazonDynamoDBFullAccess', and click 'Attach Policy'
 5. Return to the Elastic Beanstalk service and select the application you just deployed
 6. Navigate to the application URL (Should be provided at the top of the screen) and try out the application
